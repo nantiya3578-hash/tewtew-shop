@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const LINE_URL = "https://line.me/R/ti/p/~tew.tew1234";
 const PHONE = "084-713-3578";
 const TEL_URL = "tel:0847133578";
@@ -34,6 +36,16 @@ const products = [
   { name: "เดรส", price: "เริ่มต้น 290.-", bg: "bg-sky-soft", shape: "dress" },
   { name: "กางเกง / กระโปรง", price: "เริ่มต้น 199.-", bg: "bg-green-soft", shape: "skirt" },
   { name: "ชุดเซ็ต", price: "เริ่มต้น 350.-", bg: "bg-pink-soft", shape: "set" },
+];
+
+// รูปประกอบจาก Unsplash (ใช้ฟรี) — เปลี่ยนเป็นรูปสินค้าจริงของร้านได้ที่ public/looks
+const looks = [
+  { src: "/looks/look-1.jpg", label: "Denim Crop", alt: "นางแบบใส่เสื้อครอปสีขาวกับแจ็คเก็ตยีนส์" },
+  { src: "/looks/look-2.jpg", label: "All Black", alt: "นางแบบใส่ชุดโทนดำกับแจ็คเก็ตหนัง" },
+  { src: "/looks/look-3.jpg", label: "Smart Casual", alt: "นางแบบใส่เสื้อเชิ้ตขาวกับสายเอี๊ยม" },
+  { src: "/looks/look-4.jpg", label: "Pastel Pop", alt: "นางแบบสองคนใส่ชุดสีชมพูและฟ้าพาสเทล" },
+  { src: "/looks/look-5.jpg", label: "Denim Overall", alt: "นางแบบใส่เอี๊ยมยีนส์กับเสื้อดำ" },
+  { src: "/looks/look-6.jpg", label: "Street Chic", alt: "นางแบบใส่เบลเซอร์ดำกับกระโปรงลายสก๊อต" },
 ];
 
 const faqs = [
@@ -161,6 +173,50 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ลุคแนะนำ */}
+        <section className="bg-foreground px-5 py-20 text-background">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-10 text-center">
+              <p className="text-sm font-medium tracking-[0.3em] text-pink">NEW ARRIVALS</p>
+              <h2 className="mt-2 font-display text-title font-semibold">ลุคใหม่ ทันเทรนด์ทุกวัน</h2>
+              <p className="mx-auto mt-3 max-w-md text-background/70">
+                เสื้อผ้างานป้ายสไตล์วัยรุ่น ใส่ง่าย แมตช์ได้ทุกโอกาส
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3">
+              {looks.map((l, i) => (
+                <figure
+                  key={l.src}
+                  className={`group relative aspect-[3/4] overflow-hidden rounded-3xl ${i % 3 === 1 ? "md:translate-y-8" : ""}`}
+                >
+                  <Image
+                    src={l.src}
+                    alt={l.alt}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 50vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 pt-12">
+                    <span className="text-xs tracking-[0.2em] text-background/70">LOOK {String(i + 1).padStart(2, "0")}</span>
+                    <p className="font-display text-lg font-semibold">{l.label}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="mt-16 text-center">
+              <a
+                href={LINE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-background px-8 py-4 text-lg font-medium text-foreground transition hover:opacity-85"
+              >
+                <span className="h-2.5 w-2.5 rounded-full bg-line-green" aria-hidden="true" />
+                ทักไลน์ถามแบบนี้
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* จุดเด่น */}
         <section className="px-5 py-20">
           <div className="mx-auto max-w-5xl">
@@ -267,6 +323,7 @@ export default function Home() {
         </p>
         <p className="mt-1">เสื้อผ้างานป้าย ราคาถูก คุณภาพดี</p>
         <p className="mt-3">© 2026 TewTewShop</p>
+        <p className="mt-1 text-xs">ภาพประกอบจาก Unsplash</p>
       </footer>
     </>
   );
